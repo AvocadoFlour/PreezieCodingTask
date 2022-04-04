@@ -1,12 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PreezieCodingTask.Database;
 using PreezieCodingTask.Entities;
-using System.Text;
+using PreezieCodingTask.Helpers;
 
 namespace PreezieCodingTask.Controllers
 {
+    [Route("api/[controller]")]
     [ApiController]
-    [Route("[controller]")]
     public class UsersController : Controller
     {
 
@@ -16,11 +16,24 @@ namespace PreezieCodingTask.Controllers
             _usersContext = usersContext;
         }
 
+        // Note: Validation of the entity precedes the entry into the endpoint.
         [HttpPost]
-        [Route("create")]
         public IActionResult CreateUser(User user)
         {
-            _usersContext.CreateUser(user.Email, user.Password, user.DisplayName);
+            if (ModelState.IsValid)
+            {
+                _usersContext.CreateUser(user);
+                return Ok(user);
+            }
+            else
+                return BadRequest("Invalid request");
+        }
+
+        [HttpPut]
+        [Route("users/{id:int}")]
+        public async Task<ActionResult<User>> UpdateUser(long id, UserUpdateDTO userUpdate)
+        {
+            _usersContext.UpdateUser(id, userUpdate);
             return Ok();
         }
 
@@ -30,6 +43,8 @@ namespace PreezieCodingTask.Controllers
         {
             return Ok(_usersContext.ListUsers().Count);
         }
+
+
 
     }
 }

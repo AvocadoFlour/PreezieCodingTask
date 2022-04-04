@@ -1,14 +1,15 @@
 ﻿using PreezieCodingTask.Entities;
 using System.Data.Entity;
+using PreezieCodingTask.Helpers;
 
 namespace PreezieCodingTask.Database
 {
 
     public interface IUsersContext{
-        public void CreateUser(string email, string password, string displayName);
+        public void CreateUser(User user);
         public List<User> ListUsers();
-        public User GetUser(int id);
-        public bool UpdateUser(int id);
+        public User GetUser(long id);
+        public bool UpdateUser(long id, UserUpdateDTO userUpdate);
     }
 
     public class UsersContext : DbContext, IUsersContext
@@ -20,18 +21,14 @@ namespace PreezieCodingTask.Database
 
         public DbSet<User> Users { get; set; }
 
-        public void CreateUser(string email, string password, string displayName)
+        public void CreateUser(User user)
         {
-            Users.Add(new User
-            {
-                DisplayName = "TestName",
-                Password = "requires",
-                Email = "testEMail"
-            }); ;
+            user.Password = Sha256.GetHash(user.Password);
+            Users.Add(user);
             this.SaveChanges();
         }
 
-        public User GetUser(int id)
+        public User GetUser(long id)
         {
             throw new NotImplementedException();
         }
@@ -41,9 +38,17 @@ namespace PreezieCodingTask.Database
             return Users.ToList();
         }
 
-        public bool UpdateUser(int id)
+        public bool UpdateUser(long id, UserUpdateDTO userUpdate)
         {
-            throw new NotImplementedException();
+            var userToUpdate = Users.Find(id);
+            if (!(userToUpdate != null))
+            {
+                userToUpdate.DisplayName = userUpdate.DisplayName;
+                userToUpdate.Password = Sha256.GetHash(userUpdate.Password);
+                return true;
+            }
+            return false;
         }
+
     }
 }
