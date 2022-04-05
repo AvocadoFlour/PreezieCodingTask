@@ -1,5 +1,8 @@
 # Simple REST API
 
+- Entity Framework with an in-memory DB
+- .NET 6
+
 ## Endpoints
 # Create user
 POST
