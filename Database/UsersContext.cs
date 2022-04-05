@@ -53,7 +53,7 @@ namespace PreezieCodingTask.Database
 
             if(!listUsersDTO.Email.Equals(string.Empty))
             {
-                query = query.Where(u => u.Email.Equals(listUsersDTO.Email));
+                query = query.Where(u => u.Email.Contains(listUsersDTO.Email));
             }
 
             query = query.Skip(listUsersDTO.Page * listUsersDTO.PageSize);
