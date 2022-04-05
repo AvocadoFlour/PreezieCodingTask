@@ -9,7 +9,8 @@ namespace PreezieCodingTask.Helpers
         private UsersContext _usersContext;
 
         public EmailIsUnique() 
-            : base("The email addres is already registered or empty.")
+            : base("The email address is already registered or " +
+                  "the value for it you've provided is empty.")
         {
         }
 
@@ -20,9 +21,9 @@ namespace PreezieCodingTask.Helpers
 
             if (value == null)
                 return new ValidationResult("Email address empty");
-
-            if (!(_usersContext.Users.First(x => x.Email.Equals((string)value)) == null))
-                return new ValidationResult("Email address already in use.");
+            if(_usersContext.Users.Any())
+                if (!(_usersContext.Users.FirstOrDefault(x => x.Email.Equals((string)value)) == null))
+                    return new ValidationResult("Email address already in use.");
             
             return ValidationResult.Success;
         }

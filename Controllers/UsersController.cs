@@ -1,7 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using PreezieCodingTask.Database;
-using PreezieCodingTask.Entities;
+using PreezieCodingTask.Entities.User;
 using PreezieCodingTask.Helpers;
+using PreezieCodingTask.Helpers.Users;
 
 namespace PreezieCodingTask.Controllers
 {
@@ -30,18 +31,17 @@ namespace PreezieCodingTask.Controllers
         }
 
         [HttpPut]
-        [Route("users/{id:int}")]
-        public async Task<ActionResult<User>> UpdateUser(long id, UserUpdateDTO userUpdate)
+        [Route("{id:long}")]
+        public IActionResult UpdateUser(long id, UserUpdateDTO userUpdate)
         {
             _usersContext.UpdateUser(id, userUpdate);
             return Ok();
         }
 
         [HttpGet]
-        [Route("list")]
-        public IActionResult ListUsers()
+        public IActionResult ListUsers(RequestUsersDTO? listUsersDTO = null)
         {
-            return Ok(_usersContext.ListUsers().Count);
+            return Ok(_usersContext.ListUsers(listUsersDTO));
         }
 
 

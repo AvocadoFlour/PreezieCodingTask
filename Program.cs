@@ -1,22 +1,19 @@
 using PreezieCodingTask.Database;
+using Microsoft.EntityFrameworkCore;
+using PreezieCodingTask.Entities.User;
 
 var builder = WebApplication.CreateBuilder(args);
-
-// Add services to the container.
-
 builder.Services.AddControllers();
+builder.Services.AddDbContext<UsersContext>(options =>
+options.UseInMemoryDatabase("UserList"));
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 //builder.Services.AddSwaggerGen();
-builder.Services.AddSingleton<IUsersContext, UsersContext>();
+builder.Services.AddScoped<IUsersContext, UsersContext>();
 var app = builder.Build();
 
-//// Configure the HTTP request pipeline.
-//if (app.Environment.IsDevelopment())
-//{
-//    app.UseSwagger();
-//    app.UseSwaggerUI();
-//}
+DbInizializer.Seed(app);
 
 app.UseHttpsRedirection();
 

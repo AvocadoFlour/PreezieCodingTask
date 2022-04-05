@@ -1,7 +1,7 @@
 ﻿using PreezieCodingTask.Helpers;
 using System.ComponentModel.DataAnnotations;
 
-namespace PreezieCodingTask.Entities
+namespace PreezieCodingTask.Entities.User
 {
     public class User
     {
