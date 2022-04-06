@@ -26,7 +26,7 @@ JSON body:
     "Page":"0" // Which page of the results
 }
 ```
-The database is seeded with some 22 entries for the purpose of testing this endpoint.
+The database is seeded with some 22 users for the purpose of testing this endpoint.
 
 # Update user
 PUT
