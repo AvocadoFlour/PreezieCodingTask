@@ -17,7 +17,7 @@ JSON body:
 ```
 # List users
 GET
-https://localhost:4000/api/users/
+https://localhost:4000/api/users
 JSON body:
 ```
 {
