@@ -21,7 +21,7 @@ https://localhost:4000/api/users/
 JSON body:
 ```
 {
-    "Email":"5@1", // Retrieve only users with matching (.Contains()) emails This may also be empty (not omitted).
+    "Email":"5@1", // Retrieve only users with matching (.Contains()) emails This may also be empty (not null or omitted).
     "PageSize":"10", // How many results will be returned
     "Page":"0" // Which page of the results
 }
