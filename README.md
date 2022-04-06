@@ -11,7 +11,7 @@ JSON body:
 ```
 {
     "email":"valid@email.format",
-    "password": "atLeast8CharactersWithOneDigit",
+    "password": "atLeast8CharactersWithOneDigitOneCapitalLetter",
     "displayname": "randomString"
 }
 ```
